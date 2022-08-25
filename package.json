@@ -9,7 +9,7 @@
     "compile": "yarn tsc",
     "start": "node dist/app.js",
     "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint ./src --fix",
+    "lint-fix": "eslint ./src --fix"
   },
   "husky": {
     "hooks": {
