@@ -1,10 +1,10 @@
-require("dotenv").config();
+import dotenv from "dotenv";
 import express from "express";
 
+dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
-const a = 0;
 app.get("/", (req, res) => {
   res.send("Group 4 project!");
 });
