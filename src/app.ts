@@ -9,6 +9,6 @@ app.get("/", (req, res) => {
   res.send("Group 4 project!");
 });
 
-app.listen(port, () => {
+app.listen(port || 7000, () => {
   console.log(`listening on port ${port}`);
 });
