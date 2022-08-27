@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='./style.css' />
+</head>
+<body>
+
+<div class="container">
+    <div class="child">
+      <h1>Login</h1>
+      <form>
+        <div class="text_fields">
+        <label for="email">Email:</label>
+          <input type="email" placeholder="email" class="fields" size="20">
+          <br>
+          <label for="password">Password:</label>
+          <input type="text" placeholder="password" class="fields" title="Password should contain a letters,numbers and special signs" size="20" pattern="[a-z]{4,8}">
+         <br>
+  
+        </div>
+        <div class="ask">
+            <h4>Dont have an account ? <a   onclick="change_page()" class="sign" >Sign up Here</a></h4>
+        
+        </div>
+        <button><a href="">Sign In</a></button>
+       
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function change_page(){
+    window.location.href = "./signup.html";
+  } 
+</script>
+</body>
+</html>
