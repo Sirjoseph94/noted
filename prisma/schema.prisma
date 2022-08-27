@@ -16,7 +16,8 @@ model User {
   username  String?
   password String
   isAdmin Boolean
-  posts Note[]
+  
+  notes Note[]
 }
 
 model Note {
