@@ -3,6 +3,7 @@ import { requiresAuth } from "express-openid-connect";
 
 const router = Router();
 
+
 router.get("/notes", (req, res) => {
   res.send("get all notes");
 });
