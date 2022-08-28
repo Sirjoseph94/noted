@@ -18,6 +18,7 @@ const config = {
   clientID: "ewTuvQ3jkdTthAi3DgaOI4jwcE2SC3EI",
   issuerBaseURL: "https://dev-c4ds8a6y.us.auth0.com",
 };
+
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
 
