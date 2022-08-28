@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import api from "./routes";
 import { auth } from "express-openid-connect";
+import api from "./routes";
+import note from "./routes/notes";
 
 dotenv.config();
 const app = express();
@@ -24,6 +25,7 @@ app.use(auth(config));
 
 //api routes
 app.use("/api", api);
+app.use("/api/note", note);
 
 app.listen(port || 7000, () => {
   console.log(`listening on port ${port}`);
