@@ -1,13 +1,23 @@
 import { Router } from "express";
-import { createNote } from "../Controllers/noteController";
+import { createNote, readAllNotes } from "../Controllers/noteController";
 import { auth } from "../middleware/jwt";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("get all notes");
+//Get all notes by user
+router.get("/", auth, async (req: Request | any, res) => {
+  try {
+    const response = await readAllNotes(req.user.user_id);
+    res.status(201).json({
+      message: "notes gotten",
+      data: response,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
 });
 
+//create new note
 router.post("/", auth, async (req: Request | any, res) => {
   try {
     const id = req.user.user_id;
