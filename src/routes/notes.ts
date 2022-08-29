@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { requiresAuth } from "express-openid-connect";
 import { createNote } from "../Controllers/noteController";
 
 const router = Router();
@@ -22,13 +21,13 @@ router.post("/", async (req, res) => {
 
 router
   .route("/:id")
-  .get(requiresAuth(), (req, res) => {
+  .get((req, res) => {
     res.send("get single note");
   })
-  .put(requiresAuth(), (req, res) => {
+  .put((req, res) => {
     res.send("update note");
   })
-  .delete(requiresAuth(), (req, res) => {
+  .delete((req, res) => {
     res.send("request to delete note");
   });
 
