@@ -1,10 +1,18 @@
 import { Router } from "express";
-import { requiresAuth } from "express-openid-connect";
+import { createUser } from "../controller/user";
 
 const router = Router();
 
-router.get("/user", requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
+router.post("/signup", async (req, res) => {
+  try {
+    const response = await createUser(req.body);
+    res.status(200).json({
+      success: "user created",
+      data: response,
+    });
+  } catch (error) {
+    res.status(400).json({ Error: error });
+  }
 });
 
 export default router;
