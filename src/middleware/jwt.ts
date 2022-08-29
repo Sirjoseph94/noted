@@ -13,9 +13,12 @@ export function generateAccessToken(id: string) {
 
 export function auth(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies.token;
-  if (!token) return res.status(401).send("Access Denied, no token Provided");
+  if (!token)
+    return res
+      .status(401)
+      .send("Access Denied, no token Provided, please sign in");
   try {
-    const key = process.env.ACCESS_TOKEN as string;
+    const key = process.env.AUTH_SECRET as string;
     const decoded = jwt.verify(token, key);
     req.body = decoded;
     next();

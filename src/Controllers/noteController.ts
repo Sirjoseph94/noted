@@ -22,3 +22,11 @@ export async function createNote(data: Record<string, unknown>) {
     },
   });
 }
+
+export async function readAllNotes(id: number) {
+  return await prisma.note.findMany({
+    where: {
+      authorId: id,
+    },
+  });
+}

@@ -50,8 +50,8 @@ export async function signInUser(data: Record<string, unknown>) {
     },
   });
   if (!user) throw `No user with ${record.email}. Please signup`;
-  if (user.password !== record.password) throw "Alaye your password wrong naw";
+  if (user.password !== record.password)
+    throw "Wrong password, please check again";
 
-  const token = generateAccessToken(user.id as unknown as string);
-  return token;
+  return generateAccessToken(user.id as unknown as string);
 }
