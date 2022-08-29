@@ -1,29 +1,26 @@
 import dotenv from "dotenv";
 import express from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
-import api from "./routes";
-import { auth } from "express-openid-connect";
+import morgan from "morgan";
+import helmet from "helmet";
+import apiRoute from "./routes";
+import notes from "./routes/notes";
 
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
-const port = process.env.PORT;
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: process.env.AUTH_SECRET,
-  baseURL: process.env.BASE_URL,
-  clientID: "ewTuvQ3jkdTthAi3DgaOI4jwcE2SC3EI",
-  issuerBaseURL: "https://dev-c4ds8a6y.us.auth0.com",
-};
+app.use(helmet());
+app.use(morgan("dev"));
+app.use(cookieParser());
 
-// auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config));
+const port = process.env.PORT;
 
 //api routes
-app.use("/api", api);
+app.use("/api", apiRoute);
+app.use("/api/note", notes);
 
 app.listen(port || 7000, () => {
   console.log(`listening on port ${port}`);
