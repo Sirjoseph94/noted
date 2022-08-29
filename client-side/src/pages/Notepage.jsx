@@ -3,8 +3,9 @@ import uuid from "react-uuid";
 import "../main/App2.css";
 import Main from "../main/Main";
 import Sidebar from "../main/Sidebar";
+import Navbar from "../main/Navbar/Navbar";
 
-function App2() {
+function Notepage() {
   const [notes, setNotes] = useState(
     localStorage.notes ? JSON.parse(localStorage.notes) : []
   );
@@ -21,7 +22,7 @@ function App2() {
       body: "",
       lastModified: Date.now(),
     };
-
+    //a new array where we add in our new object,spread the existing note after the newly created note
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
@@ -42,22 +43,26 @@ function App2() {
     setNotes(updatedNotesArr);
   };
 
+  //this will  get the current stored id,find it in d array,and return the entire object
   const getActiveNote = () => {
     return notes.find(({ id }) => id === activeNote);
   };
 
   return (
-    <div className="App">
-      <Sidebar
-        notes={notes}
-        onAddNote={onAddNote}
-        onDeleteNote={onDeleteNote}
-        activeNote={activeNote}
-        setActiveNote={setActiveNote}
-      />
-      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+    <div>
+      <div className="App">
+        <Sidebar
+          notes={notes}
+          onAddNote={onAddNote}
+          onDeleteNote={onDeleteNote}
+          activeNote={activeNote}
+          setActiveNote={setActiveNote}
+        />
+        {/* //we send the active note to the main   */}
+        <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      </div>
     </div>
   );
 }
 
-export default App2;
+export default Notepage;

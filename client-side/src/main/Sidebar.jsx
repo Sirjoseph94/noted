@@ -1,3 +1,5 @@
+import "./App2.css";
+
 const Sidebar = ({
   notes,
   onAddNote,
@@ -11,17 +13,23 @@ const Sidebar = ({
     <div className="app-sidebar">
       <div className="app-sidebar-header">
         <h1>Notes</h1>
-        <button onClick={onAddNote}>Add</button>
+        <button className="button" onClick={onAddNote}>
+          Add
+        </button>
       </div>
       <div className="app-sidebar-notes">
         {sortedNotes.map(({ id, title, body, lastModified }, i) => (
           <div
+            //i.e if note of the current id equal the current active note, return active(&&)
             className={`app-sidebar-note ${id === activeNote && "active"}`}
+            //to set the active note whenever this div is clicked
             onClick={() => setActiveNote(id)}
           >
             <div className="sidebar-note-title">
               <strong>{title}</strong>
-              <button onClick={(e) => onDeleteNote(id)}>Delete</button>
+              <button className="button" onClick={(e) => onDeleteNote(id)}>
+                Delete
+              </button>
             </div>
 
             <p>{body && body.substr(0, 100) + "..."}</p>
