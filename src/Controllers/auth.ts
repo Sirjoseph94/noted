@@ -1,7 +1,6 @@
 import z from "zod";
 import prisma from "../prisma";
-import jwt from "jsonwebtoken";
-// import { generateAccessToken } from "../middleware/jwt";
+import { generateAccessToken } from "../middleware/jwt";
 
 const createUserSchema = z.object({
   email: z.string().email(),
@@ -53,11 +52,6 @@ export async function signInUser(data: Record<string, unknown>) {
   if (!user) throw `No user with ${record.email}. Please signup`;
   if (user.password !== record.password) throw "Alaye your password wrong naw";
 
-  // const key = process.env.AUTH_SECRET as string;
-  const key = "sfvgfgegdfvgeger";
-  const token = jwt.sign(user.id as unknown as string, key, {
-    expiresIn: "1d",
-  });
-  console.log(token);
+  const token = generateAccessToken(user.id as unknown as string);
   return token;
 }
