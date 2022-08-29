@@ -7,7 +7,7 @@ This project is about...
 ## Instructions
 **Clone** the project using `git@github.com:decadevs/week-8-mini-project-group_4.git`
 
-**CD** into `eek-8-mini-project-group_4` folder
+**CD** into `week-8-mini-project-group_4` folder
 
 **Run** `yarn` to install dependencies
 
