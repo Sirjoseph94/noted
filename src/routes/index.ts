@@ -1,8 +1,7 @@
 import { Router } from "express";
-import { requiresAuth } from "express-openid-connect";
+import { signInUser } from "../controller/auth";
 
 const router = Router();
-
 
 router.get("/notes", (req, res) => {
   res.send("get all notes");
@@ -23,8 +22,16 @@ router.delete("/note:id", (req, res) => {
   res.send("request to delete note");
 });
 
-router.get("/user", requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
+router.post("/signin", async (req, res) => {
+  try {
+    const response = await signInUser(req.body);
+    res.cookie("token", response, { httpOnly: true });
+    res.status(200).json({
+      success: "user signin successful",
+      data: response,
+    });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
-
 export default router;
