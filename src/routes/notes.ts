@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createNote } from "../Controllers/noteController";
+import { auth } from "../middleware/jwt";
 
 const router = Router();
 
@@ -7,9 +8,10 @@ router.get("/", (req, res) => {
   res.send("get all notes");
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req: Request | any, res) => {
   try {
-    const response = await createNote(req.body);
+    const id = req.user.user_id;
+    const response = await createNote({ ...req.body, id });
     res.status(201).json({
       message: "note created successfully",
       data: response,
@@ -21,13 +23,13 @@ router.post("/", async (req, res) => {
 
 router
   .route("/:id")
-  .get((req, res) => {
+  .get(auth, (req, res) => {
     res.send("get single note");
   })
-  .put((req, res) => {
+  .put(auth, (req, res) => {
     res.send("update note");
   })
-  .delete((req, res) => {
+  .delete(auth, (req, res) => {
     res.send("request to delete note");
   });
 
