@@ -49,7 +49,7 @@ function Notepage() {
 
   return (
     <div>
-      <div className="App">
+      <div className="app_note">
         <Sidebar
           notes={notes}
           onAddNote={onAddNote}

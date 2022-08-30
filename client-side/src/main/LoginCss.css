@@ -4,7 +4,7 @@ html{
   
   .general-body{
     min-height:100vh;
-  background-image: url("../images/pexels-ketut-subiyanto-4132326.jpg");
+  /* background-image: url("../images/pexels-ketut-subiyanto-4132326.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
     max-width:100vw;
