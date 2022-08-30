@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { IoMdRocket } from "react-icons/io";
 
-const Navbar = () => {
+const UserNavbar = () => {
   const [navToggle, setNavToggle] = useState(false);
   const navHandler = () => {
     setNavToggle((prevData) => !prevData);
-  };
-
-  const navigate = useNavigate();
-
-  const navigateToRegister = () => {
-    navigate("/register");
   };
 
   return (
@@ -20,9 +14,7 @@ const Navbar = () => {
       <div className="container w-100">
         <div className="navbar-content flex fw-7">
           <div className="brand-and-toggler flex flex-between w-100">
-            <Link to="/" className="navbar-brand fs-26">
-              NoteMe
-            </Link>
+            My DashBoard
             <div
               type="button"
               className={`hamburger-menu ${
@@ -51,16 +43,12 @@ const Navbar = () => {
                 </li>
 
                 <li className="text-white">
-                  <Link to="/login">Login</Link>
+                  <Link to="/login">Logout</Link>
                 </li>
               </ul>
 
               <div className="navbar-btns">
-                <button
-                  onClick={navigateToRegister}
-                  type="button"
-                  className="btn"
-                >
+                <button type="button" className="btn">
                   <IoMdRocket /> <span>get started</span>
                 </button>
               </div>
@@ -72,4 +60,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default UserNavbar;
