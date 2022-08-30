@@ -1,18 +1,18 @@
-import "./App.css";
-import "./assets/js/script";
-import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/Navbar";
-import About from "./components/About/About";
-import Footer from "./components/Footer/Footer";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Notepage from "./pages/Notepage";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Header />
-      <About />
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/notepage" element={<Notepage />} />
+      <Route path="/landingpage" element={<LandingPage />} />
+    </Routes>
   );
 }
 
