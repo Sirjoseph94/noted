@@ -18,9 +18,8 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", async (req, res) => {
   try {
     const response = await signInUser(req.body);
-    res.cookie("token", response, { httpOnly: true });
     res.status(200).json({
-      success: "user signin successful",
+      success: "user sign in successful",
       data: response,
     });
   } catch (error) {
