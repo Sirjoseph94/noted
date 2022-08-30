@@ -3,7 +3,7 @@ import Register from "./pages/Register";
 import Notepage from "./pages/Notepage";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import LandingPage from "./LandingPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (

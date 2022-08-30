@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "../api/axios.js";
 import "../main/LoginCss.css";
-import Navbar from "../main/Navbar/Navbar.js";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,8 +16,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      //remember to add my route
-      const response = await axios.post("/api/signin", {
+      const response = await axios.post("api/signin", {
         email: email,
         password: password,
       });

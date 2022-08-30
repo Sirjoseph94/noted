@@ -1,6 +1,5 @@
 import ReactMarkdown from "react-markdown";
 
-import Navbar from "./Navbar/Navbar";
 const Main = ({ activeNote, onUpdateNote }) => {
   const onEditField = (field, value) => {
     onUpdateNote({

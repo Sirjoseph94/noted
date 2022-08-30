@@ -3,7 +3,6 @@ import uuid from "react-uuid";
 import "../main/App2.css";
 import Main from "../main/Main";
 import Sidebar from "../main/Sidebar";
-import Navbar from "../main/Navbar/Navbar";
 
 function Notepage() {
   const [notes, setNotes] = useState(
