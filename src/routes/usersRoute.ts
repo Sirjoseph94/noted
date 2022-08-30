@@ -19,7 +19,7 @@ router.get("/user/:id", getSingleUsers);
 router.post("/signup", createUsers);
 router.post("/login", loginUsers);
 
-router.put("/update/:id", updateUsers);
-router.delete("/delete/:id", deleteUsers);
+router.get("/upd", updateUsers);
+router.get("/del", deleteUsers);
 
 export default router;

@@ -11,7 +11,7 @@ const port = process.env.PORT;
 //api routes
 // app.use("/api/", api);
 // app.use("/*", )
-app.use("/api", router);
+app.use("/users", router);
 
 app.listen(port || 7000, () => {
   console.log(`listening on port ${port}`);
