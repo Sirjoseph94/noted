@@ -37,7 +37,7 @@ export default function Login() {
               type="email"
               placeholder="email"
               className="fields"
-              size="20"
+              size="21"
               onChange={handleEmail}
             />
             <br />
