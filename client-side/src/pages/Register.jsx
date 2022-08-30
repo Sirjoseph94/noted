@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "../api/axios.js";
 import { Link } from "react-router-dom";
 import "../main/LoginCss.css";
+import Navbar from "../components/Navbar/Navbar.jsx";
+import Footer from "../components/Footer/Footer.jsx";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
@@ -38,64 +40,68 @@ export default function Register() {
   };
 
   return (
-    <div className="container">
-      <div className="sub_container">
-        <h1>Signup</h1>
-        <form>
-          <div className="text_fields">
-            <label>UserName:</label>
-            <input
-              type="text"
-              placeholder="Input UserName"
-              onChange={handleUserName}
-              className="fields"
-              size="20"
-            />
-            <br />
+    <div>
+      <Navbar />
+      <div className="main-container">
+        <div className="sub_container">
+          <h1>Signup</h1>
+          <form>
+            <div className="text_fields">
+              <label>UserName:</label>
+              <input
+                type="text"
+                placeholder="Input UserName"
+                onChange={handleUserName}
+                className="fields"
+                size="20"
+              />
+              <br />
 
-            <label>Email:</label>
-            <input
-              type="email"
-              placeholder="email"
-              className="fields"
-              onChange={handleEmail}
-              size="20"
-            />
-            <br />
-            <label>Password:</label>
-            <input
-              type="password"
-              placeholder="password"
-              className="fields"
-              onChange={handlePasssword}
-              title="Password should contain a letters,numbers and special signs"
-              size="20"
-              pattern="[a-z]{4,8}"
-            />
-            <br />
-            <label>confirm Password:</label>
-            <input
-              type="password"
-              placeholder="password"
-              className="fields"
-              onChange={handleConfirmPassword}
-              title="Password should contain a letters,numbers and special signs"
-              size="20"
-              pattern="[a-z]{4,8}"
-            />
-            <br />
-          </div>
-          <div className="ask">
-            <h4>
-              Already have an account ? <Link to="/login">login here</Link>
-            </h4>
-          </div>
+              <label>Email:</label>
+              <input
+                type="email"
+                placeholder="email"
+                className="fields"
+                onChange={handleEmail}
+                size="20"
+              />
+              <br />
+              <label>Password:</label>
+              <input
+                type="password"
+                placeholder="password"
+                className="fields"
+                onChange={handlePasssword}
+                title="Password should contain a letters,numbers and special signs"
+                size="20"
+                pattern="[a-z]{4,8}"
+              />
+              <br />
+              <label>confirm Password:</label>
+              <input
+                type="password"
+                placeholder="password"
+                className="fields"
+                onChange={handleConfirmPassword}
+                title="Password should contain a letters,numbers and special signs"
+                size="20"
+                pattern="[a-z]{4,8}"
+              />
+              <br />
+            </div>
+            <div className="ask">
+              <h4>
+                Already have an account ? <Link to="/login">login here</Link>
+              </h4>
+            </div>
 
-          <button className="create" onClick={handleSubmit}>
-            Create account
-          </button>
-        </form>
+            <button className="create btn-sign" onClick={handleSubmit}>
+              Create account
+            </button>
+          </form>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }

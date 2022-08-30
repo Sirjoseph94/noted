@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import uuid from "react-uuid";
+import Footer from "../components/Footer/Footer";
+import UserNavbar from "../components/Navbar/UserNavbar";
 import "../main/App2.css";
 import Main from "../main/Main";
 import Sidebar from "../main/Sidebar";
@@ -14,6 +16,7 @@ function Notepage() {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
+  //Create note
   const onAddNote = () => {
     const newNote = {
       id: uuid(),
@@ -25,20 +28,19 @@ function Notepage() {
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
-
+  //Delete note
   const onDeleteNote = (noteId) => {
     setNotes(notes.filter(({ id }) => id !== noteId));
   };
 
+  //edit note
   const onUpdateNote = (updatedNote) => {
     const updatedNotesArr = notes.map((note) => {
       if (note.id === updatedNote.id) {
         return updatedNote;
       }
-
       return note;
     });
-
     setNotes(updatedNotesArr);
   };
 
@@ -49,6 +51,9 @@ function Notepage() {
 
   return (
     <div>
+      <div>
+        <UserNavbar />
+      </div>
       <div className="app_note">
         <Sidebar
           notes={notes}
@@ -60,6 +65,7 @@ function Notepage() {
         {/* //we send the active note to the main   */}
         <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
       </div>
+      <Footer />
     </div>
   );
 }
