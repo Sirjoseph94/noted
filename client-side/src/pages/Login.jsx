@@ -18,10 +18,12 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("api/signin", {
+      const response = await axios.post("/api/signin", {
         email: email,
         password: password,
       });
+
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -44,6 +46,7 @@ export default function Login() {
                 size="20"
                 onChange={handleEmail}
               />
+              s
               <br />
               <label>Password:</label>
               <input
@@ -65,6 +68,7 @@ export default function Login() {
             <button className="btn-sign" onClick={handleSubmit}>
               Sign In
             </button>
+
             {/* <Link></Link> */}
           </form>
         </div>

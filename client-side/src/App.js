@@ -4,6 +4,7 @@ import Notepage from "./pages/Notepage";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
+// import UserDashbord from "./pages/UserDashbord";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/notepage" element={<Notepage />} />
       <Route path="/" element={<LandingPage />} />
+      {/* <Route path="/todo" element={<UserDashbord/>} /> */}
     </Routes>
   );
 }
