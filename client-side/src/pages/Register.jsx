@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../main/LoginCss.css";
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
@@ -20,6 +21,8 @@ export default function Register() {
   const handleUserName = (e) => {
     setUserName(e.target.value);
   };
+
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -28,7 +31,12 @@ export default function Register() {
         email: email,
         password: password,
       });
-      // console.log(response)
+      if (response.status === 200) {
+        alert("Registration successful");
+        navigate("/notepage");
+        console.log("move");
+      }
+      console.log("response");
     } catch (error) {
       console.log(error);
     }

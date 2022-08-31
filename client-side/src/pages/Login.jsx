@@ -3,6 +3,7 @@ import axios from "../api/axios.js";
 import "../main/LoginCss.css";
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ export default function Login() {
   const handlePasssword = (e) => {
     setPassword(e.target.value);
   };
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -22,7 +24,11 @@ export default function Login() {
         email: email,
         password: password,
       });
-
+      if (response.status === 200) {
+        alert("login successful");
+        navigate("/notepage");
+        console.log("move");
+      }
       console.log(response);
     } catch (error) {
       console.log(error);
