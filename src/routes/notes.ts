@@ -4,9 +4,10 @@ import { auth } from "../middleware/jwt";
 
 const router = Router();
 
-router.get("/", auth, async (req, res) => {
+//Get all notes by user
+router.get("/", auth, async (req: Request | any, res) => {
   try {
-    const response = await readAllNotes(req.body.user_id);
+    const response = await readAllNotes(req.user.user_id);
     res.status(201).json({
       message: "notes gotten",
       data: response,
@@ -16,9 +17,11 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+//create new note
+router.post("/", auth, async (req: Request | any, res) => {
   try {
-    const response = await createNote(req.body);
+    const id = req.user.user_id;
+    const response = await createNote({ ...req.body, id });
     res.status(201).json({
       message: "note created successfully",
       data: response,
@@ -30,13 +33,13 @@ router.post("/", async (req, res) => {
 
 router
   .route("/:id")
-  .get((req, res) => {
+  .get(auth, (req, res) => {
     res.send("get single note");
   })
-  .put((req, res) => {
+  .put(auth, (req, res) => {
     res.send("update note");
   })
-  .delete((req, res) => {
+  .delete(auth, (req, res) => {
     res.send("request to delete note");
   });
 

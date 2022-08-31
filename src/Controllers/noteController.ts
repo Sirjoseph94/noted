@@ -4,6 +4,7 @@ import prisma from "../prisma";
 const createNoteSchema = z.object({
   title: z.string(),
   content: z.string(),
+  id: z.number(),
 });
 
 export async function createNote(data: Record<string, unknown>) {
@@ -18,7 +19,7 @@ export async function createNote(data: Record<string, unknown>) {
     data: {
       title: record.title,
       content: record.content,
-      authorId: 2,
+      authorId: record.id,
     },
   });
 }
