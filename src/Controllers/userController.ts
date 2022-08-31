@@ -2,10 +2,12 @@ import z from "zod"
 import prisma from '../prisma';
 
 const updateUserSchema = z.object({
+  
   email: z.string().email().optional(),
   username: z.string().min(2).max(15).optional(),
   password: z.string().min(6).optional(),
   isAdmin: z.string().transform((input => Boolean(input))).optional(),
+
 });
 
 export async function updateUsers(userId:number, data: unknown) {
