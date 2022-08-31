@@ -42,10 +42,7 @@ a{
   text-decoration: none;
   color: unset;
 }
-h1, h2, h3, h4, h5, h6{
-  letter-spacing: var(--spacing);
-  text-transform: capitalize;
-}
+
 img{
   width: 100%;
   display: block;
@@ -63,7 +60,7 @@ button{
   font-family: inherit;
   font-size: 1.8rem;
 }
-input, textarea, select{
+ select{
   outline: 0;
   border: none;
   resize: none;
@@ -74,6 +71,7 @@ input, textarea, select{
   max-width: 1160px;
   margin: 0 auto;
   padding: 0 2rem;
+
 }
 
 
@@ -186,7 +184,7 @@ input, textarea, select{
   letter-spacing: 1px;
   opacity: 0.95;
 }
-.btn-blue{
+.landingPage_btn-blue{
   background-color: var(--clr-robin-blue);
 }
 

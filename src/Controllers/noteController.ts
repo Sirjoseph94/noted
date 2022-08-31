@@ -8,8 +8,8 @@ const createNoteSchema = z.object({
 });
 
 const updateNoteSchema = z.object({
-  title: z.string(),
-  content: z.string(),
+  title: z.string().optional(),
+  content: z.string().optional(),
 });
 
 export async function createNote(data: Record<string, unknown>) {

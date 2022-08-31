@@ -7,11 +7,12 @@ import {
   deleteNote,
 } from "../Controllers/noteController";
 import { auth } from "../middleware/jwt";
+import { userRequest } from "../types/express";
 
 const router = Router();
 
 //Get all notes by user
-router.get("/", auth, async (req, res) => {
+router.get("/", auth, async (req:userRequest, res) => {
   try {
     const response = await readAllNotes(req.user.user_id);
     res.status(201).json({
@@ -24,7 +25,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 //create new note
-router.post("/", auth, async (req, res) => {
+router.post("/", auth, async (req:userRequest, res) => {
   try {
     const id = req.user.user_id;
     const response = await createNote({ ...req.body, id });
@@ -44,7 +45,6 @@ router
       const response = await getOneNote(req.params.id as unknown as number);
       res.status(200).json({ response });
     } catch (error) {
-      console.log(error);
       res.status(400).json({ error: error });
     }
   })
