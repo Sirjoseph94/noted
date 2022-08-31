@@ -2,15 +2,17 @@ import z from "zod"
 import prisma from '../prisma';
 
 const updateUserSchema = z.object({
-  email: z.string().email(),
-  username: z.string().min(2).max(15),
-  password: z.string().min(6),
-  isAdmin: z.boolean().default(false),
+  
+  email: z.string().email().optional(),
+  username: z.string().min(2).max(15).optional(),
+  password: z.string().min(6).optional(),
+  isAdmin: z.string().transform((input => Boolean(input))).optional(),
+
 });
 
 export async function updateUsers(userId:number, data: unknown) {
   const validate = updateUserSchema.safeParse(data)
-  if(!validate.success) throw "invalid input";
+  if(!validate.success) throw validate;
 
  const user = prisma.user.update({
   where:{
@@ -25,3 +27,39 @@ export async function updateUsers(userId:number, data: unknown) {
  })
  return user
 }
+
+export async function deleteUser(id: number) {
+  const deletedNote = await prisma.note.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+  if (!deletedNote) throw "Error occured, please try again";
+  return deletedNote;
+}
+
+export async function allUsers(id:number) {
+  const admin = await prisma.user.findFirst({
+    where: {
+      id: id,
+      isAdmin: true
+    }
+  })
+ 
+  if(!admin?.isAdmin) throw "not authorized"
+  
+  const users = await prisma.user.findMany({
+    select:{
+      id: true,
+      email: true,
+      username: true,
+      _count: {
+        select: { notes: true },
+      },
+ 
+    }
+  })
+
+  return users 
+}
+

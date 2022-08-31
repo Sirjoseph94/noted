@@ -8,7 +8,6 @@ import helmet from "helmet";
 import users from "./routes/user";
 import notes from "./routes/notes";
 
-
 dotenv.config();
 const app = express();
 app.use(cors());
@@ -25,7 +24,6 @@ const port = process.env.PORT;
 // app.use("/users", router);
 app.use("/api", users);
 app.use("/api/note", notes);
-
 
 app.listen(port || 7000, () => {
   console.log(`listening on port ${port}`);

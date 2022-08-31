@@ -6,7 +6,7 @@ const createUserSchema = z.object({
   email: z.string().email(),
   username: z.string().min(2).max(15),
   password: z.string().min(6),
-  isAdmin: z.boolean().default(true),
+  isAdmin: z.string().transform((input => Boolean(input))).optional(),
 });
 
 const signinUserSchema = z.object({
