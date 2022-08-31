@@ -33,12 +33,12 @@ export default function Register() {
       });
       if (response.status === 200) {
         alert("Registration successful");
-        navigate("/notepage");
+        navigate("/login");
         console.log("move");
       }
       console.log("response");
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.Error.issues[0].message);
     }
   };
 
