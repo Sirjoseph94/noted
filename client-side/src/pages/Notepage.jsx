@@ -36,7 +36,7 @@ function Notepage() {
       });
       // console.log("save")
     } catch (error) {
-      // console.log("error");
+      console.log("error");
     }
   }
   //Delete note
@@ -45,6 +45,8 @@ function Notepage() {
 
     try {
       const response = await axios.delete("/api/note/:id");
+      
+      
       console.log("deleted");
     } catch (error) {
       console.log("error");

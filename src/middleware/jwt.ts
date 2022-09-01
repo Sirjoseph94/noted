@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import prisma from "../prisma";
+import { userRequest } from "../types/express";
+
 
 dotenv.config();
 const key = process.env.AUTH_SECRET as string;
@@ -13,14 +15,10 @@ export function generateAccessToken(id: string) {
   return token;
 }
 
-export async function auth(
-  req: Request | any,
-  res: Response,
-  next: NextFunction
-) {
+export async function auth(req: userRequest, res: Response, next: NextFunction) {
   const authorization = req.headers.authorization;
   if (!authorization)
-    return res.status(401).send("Access Denied, no token Provided");
+    return res.status(401).json({ error: "Access Denied, no token Provided" });
   try {
     const token = authorization.slice(7, authorization.length);
     const decoded = jwt.verify(token, key);
