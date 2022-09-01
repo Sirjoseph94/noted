@@ -14,6 +14,7 @@ function App() {
       <Route path="/notepage" element={<Notepage />} />
       <Route path="/" element={<LandingPage />} />
       <Route path="/admin-page/*" element={<Adminpage />} />
+
     </Routes>
   );
 }

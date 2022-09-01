@@ -1,3 +1,4 @@
+
 /* html{
     height:100%;
   } */
@@ -83,3 +84,80 @@
   
   
   
+
+.main-container{
+    
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+
+.sub_container{
+  background-color:white;
+  min-height: 500px;
+  border-radius:15px;
+  width:400px;
+  margin-bottom:80px;
+  margin-top: 15rem;
+  border: 3px solid rgb(27, 132, 173);
+  background-color: rgb(27, 132, 173);
+  color: white;
+  padding: 5rem 0;
+  
+  
+}
+.ask >h4 >a{
+  color:rgb(133, 205, 52)
+}
+
+
+h1{
+font-weight:bold;
+  text-align:center;
+  font-family:'Open Sans', sans-serif;
+}
+
+label{
+font-weight:bold;
+  padding:15px;
+  text-align:left;
+  margin-left:25px;
+  
+}
+.sign{
+  color: rgb(103, 171, 20)
+}
+.ask{
+  text-align: center;
+}
+
+
+
+input{
+box-sizing:border-box;
+  margin:15px 10px 15px 10px;
+  display:inline-block;
+  width:300px;
+  margin-left:35px;
+  border-radius: 2%;
+  padding: 20px;
+  font-size: 18px;
+}
+
+
+.btn-sign{
+  width: 20rem;
+  background-color:rgb(142, 145, 208);
+  color:white;
+margin: 30px 0 0 95px;
+padding: 1.7rem;
+  border-radius:5px;
+  font-size: 2.5rem;
+}
+
+a{
+text-decoration:none;
+  color:white;
+}

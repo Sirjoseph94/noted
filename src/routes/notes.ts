@@ -1,12 +1,20 @@
 import { Router } from "express";
-import { createNote, readAllNotes } from "../Controllers/noteController";
+import {
+  createNote,
+  readAllNotes,
+  editNote,
+  getOneNote,
+  deleteNote,
+} from "../Controllers/noteController";
 import { auth } from "../middleware/jwt";
+import { userRequest } from "../types/express";
 
 const router = Router();
 
-router.get("/", auth, async (req, res) => {
+//Get all notes by user
+router.get("/", auth, async (req:userRequest, res) => {
   try {
-    const response = await readAllNotes(req.body.user_id);
+    const response = await readAllNotes(req.user.user_id);
     res.status(201).json({
       message: "notes gotten",
       data: response,
@@ -16,9 +24,11 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+//create new note
+router.post("/", auth, async (req:userRequest, res) => {
   try {
-    const response = await createNote(req.body);
+    const id = req.user.user_id;
+    const response = await createNote({ ...req.body, id });
     res.status(201).json({
       message: "note created successfully",
       data: response,
@@ -30,14 +40,34 @@ router.post("/", async (req, res) => {
 
 router
   .route("/:id")
-  .get((req, res) => {
-    res.send("get single note");
+  .get(auth, async (req, res) => {
+    try {
+      const response = await getOneNote(req.params.id as unknown as number);
+      res.status(200).json({ response });
+    } catch (error) {
+      res.status(400).json({ error: error });
+    }
   })
-  .put((req, res) => {
-    res.send("update note");
+  .put(auth, async (req, res) => {
+    try {
+      const id = req.params.id as unknown as number;
+      const response = await editNote(id, req.body);
+      res.status(201).json({
+        message: "note updated successfully",
+        data: response,
+      });
+    } catch (error) {
+      res.status(400).json({ error: error });
+    }
   })
-  .delete((req, res) => {
-    res.send("request to delete note");
+  .delete(auth, async (req, res) => {
+    try {
+      const id = req.params.id as unknown as number;
+      await deleteNote(id);
+      res.status(200).json({ message: "note deleted successfully" });
+    } catch (error) {
+      res.status(400).json({ error: error });
+    }
   });
 
 export default router;

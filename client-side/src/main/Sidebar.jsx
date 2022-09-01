@@ -27,11 +27,12 @@ const Sidebar = ({
           >
             <div className="sidebar-note-title">
               <strong>{title}</strong>
+
               <button className="button" onClick={(e) => onDeleteNote(id)}>
                 Delete
               </button>
             </div>
-
+            {/* if theres a body ,display the first 100 character */}
             <p>{body && body.substr(0, 100) + "..."}</p>
             <small className="note-meta">
               Last Modified{" "}
