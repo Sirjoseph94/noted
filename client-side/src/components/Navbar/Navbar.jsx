@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { IoMdRocket } from "react-icons/io";
 
@@ -7,6 +7,12 @@ const Navbar = () => {
   const [navToggle, setNavToggle] = useState(false);
   const navHandler = () => {
     setNavToggle((prevData) => !prevData);
+  };
+
+  const navigate = useNavigate();
+
+  const navigateToRegister = () => {
+    navigate("/register");
   };
 
   return (
@@ -45,12 +51,16 @@ const Navbar = () => {
                 </li>
 
                 <li className="text-white">
-                  <Link to="/">Login</Link>
+                  <Link to="/login">Login</Link>
                 </li>
               </ul>
 
               <div className="navbar-btns">
-                <button type="button" className="btn">
+                <button
+                  onClick={navigateToRegister}
+                  type="button"
+                  className="btn"
+                >
                   <IoMdRocket /> <span>get started</span>
                 </button>
               </div>

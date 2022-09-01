@@ -1,44 +1,34 @@
-html{
+/* html{
     height:100%;
-  }
+  } */
   
-  .general-body{
-    min-height:100vh;
-  background-image: url("../images/pexels-ketut-subiyanto-4132326.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-    max-width:100vw;
-  }
-  
-  .container{
-  
+ .main-container{
+    
     display:flex;
     justify-content:center;
     align-items:center;
-    margin-top:40px;
   }
+  
+  
   
   .sub_container{
     background-color:white;
-    min-height:380px;
+    min-height: 500px;
     border-radius:15px;
-    width:325px;
+    width:400px;
     margin-bottom:80px;
+    margin-top: 15rem;
+    border: 3px solid rgb(27, 132, 173);
+    background-color: rgb(27, 132, 173);
+    color: white;
+    padding: 5rem 0;
     
     
   }
   .ask >h4 >a{
-    color:blue
+    color:rgb(133, 205, 52)
   }
   
-  .create{
-margin-bottom: 15px;
-  }
-
-  button .child{
-  display:flex;
-    justify-content:flex-end;
-  }
   
   h1{
   font-weight:bold;
@@ -54,7 +44,7 @@ margin-bottom: 15px;
     
   }
   .sign{
-    color: blue
+    color: rgb(103, 171, 20)
   }
   .ask{
     text-align: center;
@@ -64,28 +54,26 @@ margin-bottom: 15px;
   
   input{
   box-sizing:border-box;
-    height:30px;
     margin:15px 10px 15px 10px;
     display:inline-block;
-    width:250px;
+    width:300px;
     margin-left:35px;
+    border-radius: 2%;
+    padding: 20px;
+    font-size: 18px;
   }
   
-  ::placeholder{
-  color:#c1c1c1;
-  transition:0.5s
-  }
   
-  button{
-    width:130px;
-    height:30px;
-    background-color:green;
-    text-align:center;
+  .btn-sign{
+    width: 20rem;
+    background-color:rgb(142, 145, 208);
     color:white;
-  margin: 10px 0 0 95px;
+  margin: 30px 0 0 95px;
+  padding: 1.7rem;
     border-radius:5px;
+    font-size: 2.5rem;
   }
-  
+
   a{
   text-decoration:none;
     color:white;

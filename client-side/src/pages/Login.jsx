@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "../api/axios.js";
 import "../main/LoginCss.css";
+import Navbar from "../components/Navbar/Navbar.jsx";
+import Footer from "../components/Footer/Footer.jsx";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -26,41 +28,49 @@ export default function Login() {
   };
 
   return (
-    <div className="container">
-      <div className="sub_container">
-        <h1>Login</h1>
+    <div>
+      <Navbar />
+      <div className="main-container">
+        <div className="sub_container">
+          <h1>Login</h1>
 
-        <form>
-          <div className="text_fields">
-            <label>Email:</label>
-            <input
-              type="email"
-              placeholder="email"
-              className="fields"
-              size="20"
-              onChange={handleEmail}
-            />
-            <br />
-            <label>Password:</label>
-            <input
-              type="password"
-              placeholder="password"
-              className="fields"
-              title="Password should contain a letters,numbers and special signs"
-              size="20"
-              pattern="[a-z]{4,8}"
-              onChange={handlePasssword}
-            />
-            <br />
-          </div>
-          <div className="ask">
-            <h4>
-              Dont have an account? <a href="/register"> Sign up Here</a>{" "}
-            </h4>
-          </div>
-          <button onClick={handleSubmit}>Sign In</button>
-          {/* <Link></Link> */}
-        </form>
+          <form>
+            <div className="text_fields">
+              <label>Email:</label>
+              <input
+                type="email"
+                placeholder="email"
+                className="fields"
+                size="20"
+                onChange={handleEmail}
+              />
+              <br />
+              <label>Password:</label>
+              <input
+                type="password"
+                placeholder="password"
+                className="fields"
+                title="Password should contain a letters,numbers and special signs"
+                size="20"
+                pattern="[a-z]{4,8}"
+                onChange={handlePasssword}
+              />
+              <br />
+            </div>
+            <div className="ask">
+              <h4>
+                Dont have an account? <a href="/register"> Sign-up</a>{" "}
+              </h4>
+            </div>
+            <button className="btn-sign" onClick={handleSubmit}>
+              Sign In
+            </button>
+            {/* <Link></Link> */}
+          </form>
+        </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

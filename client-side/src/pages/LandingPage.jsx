@@ -8,7 +8,7 @@ import Footer from "../components/Footer/Footer";
 
 export default function LandingPage() {
   return (
-    <div className="App">
+    <div>
       <Navbar />
       <Header />
       <About />
