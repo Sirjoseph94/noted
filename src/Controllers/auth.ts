@@ -49,6 +49,7 @@ export async function signInUser(data: Record<string, unknown>) {
       email: record.email,
     },
   });
+
   if (!user) throw `No user with ${record.email}. Please signup`;
   if (user.password !== record.password)
     throw "Wrong password, please check again";

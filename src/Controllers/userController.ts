@@ -1,5 +1,5 @@
-import z from "zod"
-import prisma from '../prisma';
+import z from "zod";
+import prisma from "../prisma";
 
 const updateUserSchema = z.object({
   
