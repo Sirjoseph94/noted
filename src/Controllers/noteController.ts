@@ -10,6 +10,7 @@ const createNoteSchema = z.object({
 const updateNoteSchema = z.object({
   title: z.string().optional(),
   content: z.string().optional(),
+  updatedAt: z.date()
 });
 
 export async function createNote(data: Record<string, unknown>) {

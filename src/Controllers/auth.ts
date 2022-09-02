@@ -1,6 +1,7 @@
 import z from "zod";
 import prisma from "../prisma";
 import { generateAccessToken } from "../middleware/jwt";
+import { encryptPassword, decryptPassword } from "../helper/utility";
 
 const createUserSchema = z.object({
   email: z.string().email(),
@@ -15,7 +16,7 @@ const signinUserSchema = z.object({
 });
 
 //signup user
-export function createUser(user: Record<string, unknown>) {
+export async function createUser(user: Record<string, unknown>) {
   const validate = createUserSchema.safeParse(user);
   if (!validate.success) {
     throw validate.error;
@@ -26,7 +27,7 @@ export function createUser(user: Record<string, unknown>) {
     data: {
       email: record.email,
       username: record.username,
-      password: record.password,
+      password: await encryptPassword(record.password) as string,
       isAdmin: record.isAdmin,
     },
     select: {
@@ -51,8 +52,8 @@ export async function signInUser(data: Record<string, unknown>) {
   });
 
   if (!user) throw `No user with ${record.email}. Please signup`;
-  if (user.password !== record.password)
-    throw "Wrong password, please check again";
+  const match = await decryptPassword(record.password, user.password)
 
+  if (!match) throw "incorrect password";
   return generateAccessToken(user.id as unknown as string);
 }
