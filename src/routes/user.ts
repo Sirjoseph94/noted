@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { createUser, signInUser } from "../Controllers/auth";
-import { updateUsers } from "../Controllers/userController";
+import { updateUsers, allUsers } from "../Controllers/userController";
 import { auth } from "../middleware/jwt";
+import { userRequest } from "../types/express";
 
 const router = Router();
 
@@ -30,7 +31,7 @@ router.post("/signin", async (req, res) => {
   }
 });
 
-router.put("/user", auth, async(req: any, res)=>{
+router.put("/user", auth, async(req: userRequest, res)=>{
   const userId: number = req.user
   try {
     const response = await updateUsers(userId, req.body)
@@ -42,5 +43,18 @@ router.put("/user", auth, async(req: any, res)=>{
     res.status(400).json({error})
   }
  
+})
+
+router.get("/users", auth, async (req:userRequest, res) => {
+  const userId: number = req.user
+  try {
+    const response = await allUsers(userId)
+    res.status(200).json({
+      message: "Users gotten successful",
+      response
+    })
+  } catch (error) {
+    res.status(400).json({error})
+  }
 })
 export default router;

@@ -4,6 +4,9 @@
 A Note-taking web application that allows users to take quick notes and easily store their notes and thoughts in the cloud. Notes can be taken by typing or transcribing speech to text 
 
 ## API Endpoints
+**Postman Documentation** [Import link ](https://www.getpostman.com/collections/7fcd4f59afed93c880e0)
+
+
 **POST** `/api/signin` - login user  
 body - (email, password)
 
@@ -47,3 +50,5 @@ use `git checkout -b <name of feature>` to create a new branch and checkout into
 Every code passes through `eslint` to make sure it has no error before a `git push` will be successful.
 
 > Forward your questions to the group. Thanks
+
+
