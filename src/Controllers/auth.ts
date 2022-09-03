@@ -50,6 +50,7 @@ export async function signInUser(data: Record<string, unknown>) {
       email: record.email,
     },
   });
+
   if (!user) throw `No user with ${record.email}. Please signup`;
   const match = await decryptPassword(record.password, user.password)
 

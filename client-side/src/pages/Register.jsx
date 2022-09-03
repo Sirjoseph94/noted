@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import "../main/LoginCss.css";
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -17,25 +17,28 @@ export default function Register() {
   const handlePasssword = (e) => {
     setPassword(e.target.value);
   };
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
-  };
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
   };
+
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/signup", {
-        userName: userName,
+        username: userName,
         email: email,
         password: password,
-        confirmPassword: confirmPassword,
       });
-      // console.log(response)
+      if (response.status === 200) {
+        alert("Registration successful");
+        navigate("/login");
+        console.log("move");
+      }
+      console.log("response");
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.Error.issues[0].message);
     }
   };
 
@@ -77,7 +80,7 @@ export default function Register() {
                 pattern="[a-z]{4,8}"
               />
               <br />
-              <label>confirm Password:</label>
+              {/* <label>confirm Password:</label>
               <input
                 type="password"
                 placeholder="password"
@@ -87,7 +90,7 @@ export default function Register() {
                 size="20"
                 pattern="[a-z]{4,8}"
               />
-              <br />
+              <br /> */}
             </div>
             <div className="ask">
               <h4>

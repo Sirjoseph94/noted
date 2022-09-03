@@ -3,6 +3,7 @@ import axios from "../api/axios.js";
 import "../main/LoginCss.css";
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,16 +15,25 @@ export default function Login() {
   const handlePasssword = (e) => {
     setPassword(e.target.value);
   };
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("api/signin", {
+      const response = await axios.post("/api/signin", {
         email: email,
         password: password,
       });
+
+      if (response.data.user.id) {
+        alert("login successful");
+        navigate("/notepage");
+        // console.log("sucessful");
+      }
+      // console.log(response);
     } catch (error) {
       console.log(error);
+      alert(error.response.data.error.issues[0].message);
     }
   };
 
@@ -44,6 +54,7 @@ export default function Login() {
                 size="20"
                 onChange={handleEmail}
               />
+              s
               <br />
               <label>Password:</label>
               <input
@@ -65,6 +76,7 @@ export default function Login() {
             <button className="btn-sign" onClick={handleSubmit}>
               Sign In
             </button>
+
             {/* <Link></Link> */}
           </form>
         </div>

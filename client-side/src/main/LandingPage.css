@@ -184,7 +184,7 @@ button{
   letter-spacing: 1px;
   opacity: 0.95;
 }
-.landingPage_btn-blue{
+.btn-blue{
   background-color: var(--clr-robin-blue);
 }
 
