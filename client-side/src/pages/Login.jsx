@@ -24,8 +24,9 @@ export default function Login() {
         email: email,
         password: password,
       });
-
-      if (response.data.user.id) {
+      console.log(response)
+      if (response.data.success) {
+        localStorage.setItem("token", response.data.data)
         alert("login successful");
         navigate("/notepage");
         // console.log("sucessful");
