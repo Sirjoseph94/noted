@@ -8,14 +8,16 @@ const createUserSchema = z.object({
   username: z.string().min(2).max(15),
   password: z.string().min(6),
   isAdmin: z.string().transform((input => Boolean(input))).optional(),
+
 });
 
 const signinUserSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+	email: z.string().email(),
+	password: z.string(),
 });
 
 //signup user
+
 export async function createUser(user: Record<string, unknown>) {
   const validate = createUserSchema.safeParse(user);
   if (!validate.success) {
@@ -28,7 +30,7 @@ export async function createUser(user: Record<string, unknown>) {
       email: record.email,
       username: record.username,
       password: await encryptPassword(record.password) as string,
-      isAdmin: record.isAdmin,
+      isAdmin: Boolean(record.isAdmin),
     },
     select: {
       id: true,
@@ -36,14 +38,16 @@ export async function createUser(user: Record<string, unknown>) {
       username: true,
     },
   });
+
 }
 
 //sign in user
 export async function signInUser(data: Record<string, unknown>) {
-  const validate = signinUserSchema.safeParse(data);
+	const validate = signinUserSchema.safeParse(data);
 
-  if (!validate.success) throw validate.error;
-  const record = validate.data;
+	if (!validate.success) throw validate.error;
+	const record = validate.data;
+
 
   const user = await prisma.user.findUnique({
     where: {
@@ -56,4 +60,5 @@ export async function signInUser(data: Record<string, unknown>) {
 
   if (!match) throw "incorrect password";
   return generateAccessToken(user.id as unknown as string);
+
 }

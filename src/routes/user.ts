@@ -7,18 +7,19 @@ import { userRequest } from "../types/express";
 const router = Router();
 
 router.post("/signup", async (req, res) => {
-  try {
-    const response = await createUser(req.body);
-    res.status(200).json({
-      success: "user created",
-      data: response,
-    });
-  } catch (error) {
-    res.status(400).json({ Error: error });
-  }
+	try {
+		const response = await createUser(req.body);
+		res.status(200).json({
+			success: "user created",
+			data: response,
+		});
+	} catch (error) {
+		res.status(400).json({ Error: error });
+	}
 });
 
 router.post("/signin", async (req, res) => {
+
   try {
     const response = await signInUser(req.body);
     res.cookie("token", response, { httpOnly: true });
@@ -58,4 +59,5 @@ router.get("/users", auth, async (req:userRequest, res) => {
     res.status(400).json({error})
   }
 })
+
 export default router;
