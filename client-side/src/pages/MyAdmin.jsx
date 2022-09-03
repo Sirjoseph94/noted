@@ -6,7 +6,25 @@ import axios from "../api/axios";
 
 function MyAdmin() {
   const [usersCount, setUsersCount] = useState(0);
+  const [users, setUsers] = useState([]);
   const [notesCount, setNotesCount] = useState(0);
+ 
+
+  useEffect(() => {
+    async function getUsers() {
+      const token = localStorage.getItem("token");
+      try {
+        const users = await axios.get("/api/users", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUsers(users.data.response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUsers()
+  },[])
+
 
   async function GetUsers() {
     const token = localStorage.getItem("token");
@@ -14,7 +32,6 @@ function MyAdmin() {
       const users = await axios.get("/api/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(users.data.response);
       return users.data.response;
     } catch (error) {
       console.log(error);
@@ -33,6 +50,25 @@ function MyAdmin() {
       console.log(error);
     }
   }
+  async function remove(id) {
+  const token = localStorage.getItem("token");
+   const response =  await axios.delete('/api/user/' + id, {
+      headers: { Authorization: `Bearer ${token}` },
+   })
+    
+    return (
+  
+      alert(response.data.response)
+      //       <div class="uk-alert-danger" uk-alert>
+//     <a class="uk-alert-close" uk-close></a>
+//     <p>{response}</p>
+// </div>
+    )
+  }
+
+ 
+
+  
   useEffect(() => {
     GetUsers().then((data) => setUsersCount(data));
   }, []);
@@ -43,9 +79,8 @@ function MyAdmin() {
   return (
     <>
       <nav
-        className="uk-navbar-container uk-margin uk-nav-primary"
-        data-uk-navbar
-      >
+        className="uk-navbar-container uk-margin-left uk-margin-right uk-primary"
+        data-uk-navbar>
         <div className="uk-navbar-center">
           <a className="uk-navbar-item uk-logo" href="#">
             Noted App Stats
@@ -86,22 +121,22 @@ function MyAdmin() {
             </tr>
           </thead>
           <tbody>
-            {usersCount.map((data) => {
+            {/* {removeUser} */}
+            { users.map(data => {
               return (
-                <tr>
+                <tr key={data.id}>
                   <td>{data.username}</td>
                   <td>{data.email}</td>
                   <td>{data._count.notes}</td>
                   <td>
-                    <button
-                      class="uk-button uk-button-default uk-button-small"
+                    {/* <button
+                      className="uk-button uk-button-default uk-button-small"
                       type="button"
                     >
                       ADMIN
-                    </button>
-                    <button
-                      class="uk-button uk-button-danger uk-button-small"
-                      id={data.id}
+                    </button> */}
+                    <button onClick={()=>remove(data.id)}
+                      className="uk-button uk-button-danger uk-button-small"
                       type="button"
                     >
                       DELETE
@@ -109,10 +144,15 @@ function MyAdmin() {
                   </td>
                 </tr>
               );
-            })}
+            })} 
           </tbody>
         </table>
       </div>
+      <div className="uk-section uk-section-xsmall uk-section-secondary">
+        <div className="uk-container uk-primary uk-text-center">
+          <span className="uk-text-muted" >NoteMe by Group 4</span>
+    </div>
+</div>
     </>
   );
 }
