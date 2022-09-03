@@ -2,9 +2,9 @@ import z from "zod";
 import prisma from "../prisma";
 
 const createNoteSchema = z.object({
-  title: z.string(),
-  content: z.string(),
-  id: z.number(),
+	title: z.string(),
+	content: z.string(),
+	id: z.number(),
 });
 
 const updateNoteSchema = z.object({
@@ -14,21 +14,22 @@ const updateNoteSchema = z.object({
 });
 
 export async function createNote(data: Record<string, unknown>) {
-  const validate = createNoteSchema.safeParse(data);
+	const validate = createNoteSchema.safeParse(data);
 
-  if (!validate.success) {
-    throw validate.error;
-  }
+	if (!validate.success) {
+		throw validate.error;
+	}
 
-  const record = validate.data;
-  return prisma.note.create({
-    data: {
-      title: record.title,
-      content: record.content,
-      authorId: record.id,
-    },
-  });
+	const record = validate.data;
+	return prisma.note.create({
+		data: {
+			title: record.title,
+			content: record.content,
+			authorId: record.id,
+		},
+	});
 }
+
 
 export async function readAllNotes(userId: number) {
   return await prisma.note.findMany({

@@ -8,12 +8,13 @@ import { userRequest } from "../types/express";
 dotenv.config();
 const key = process.env.AUTH_SECRET as string;
 export function generateAccessToken(id: string) {
-  const key = process.env.AUTH_SECRET as string;
-  const token = jwt.sign({ user_id: id }, key, {
-    expiresIn: "24h",
-  });
-  return token;
+	const key = process.env.AUTH_SECRET as string;
+	const token = jwt.sign({ user_id: id }, key, {
+		expiresIn: "24h",
+	});
+	return token;
 }
+
 
 export async function auth(req: userRequest, res: Response, next: NextFunction) {
   const authorization = req.headers.authorization;
@@ -27,18 +28,19 @@ export async function auth(req: userRequest, res: Response, next: NextFunction) 
     }
     const { user_id } = decoded as { [key: string]: number };
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
 
-    if (!user) {
-      res.status(401).send("not verified");
-    }
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(400).send(error);
-  }
+		const user = await prisma.user.findUnique({
+			where: {
+				id: user_id,
+			},
+		});
+
+		if (!user) {
+			res.status(401).send("not verified");
+		}
+		req.user = decoded;
+		next();
+	} catch (error) {
+		res.status(400).send(error);
+	}
 }

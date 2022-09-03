@@ -12,6 +12,7 @@ import { userRequest } from "../types/express";
 const router = Router();
 
 //Get all notes by user
+
 router.get("/", auth, async (req:userRequest, res) => {
   try {
     const response = await readAllNotes(req.user.user_id);
