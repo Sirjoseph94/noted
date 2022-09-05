@@ -28,14 +28,22 @@ export async function updateUsers(userId:number, data: unknown) {
  return user
 }
 
-export async function deleteUser(id: number) {
-  const deletedNote = await prisma.note.delete({
+export async function deleteUser(id: number, userId:number) {
+  const admin = await prisma.user.findFirst({
+    where: {
+      id: userId,
+      isAdmin: true
+    }
+  })
+ 
+  if(!admin?.isAdmin) throw "not authorized"
+  const deletedUser = await prisma.user.delete({
     where: {
       id: Number(id),
     },
   });
-  if (!deletedNote) throw "Error occured, please try again";
-  return deletedNote;
+  if (!deletedUser) throw "Error occured, please try again";
+  return ("User account removed successfully");
 }
 
 export async function allUsers(id:number) {

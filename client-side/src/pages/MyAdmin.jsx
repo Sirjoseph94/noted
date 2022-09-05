@@ -129,12 +129,7 @@ function MyAdmin() {
                   <td>{data.email}</td>
                   <td>{data._count.notes}</td>
                   <td>
-                    {/* <button
-                      className="uk-button uk-button-default uk-button-small"
-                      type="button"
-                    >
-                      ADMIN
-                    </button> */}
+                  
                     <button onClick={()=>remove(data.id)}
                       className="uk-button uk-button-danger uk-button-small"
                       type="button"

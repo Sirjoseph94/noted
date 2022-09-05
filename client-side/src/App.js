@@ -5,6 +5,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import MyAdmin from "./pages/MyAdmin";
+import MyNotes from "./pages/MyNotes";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/notepage" element={<Notepage />} />
+      <Route path="/notes" element={<MyNotes />} />
       <Route path="/" element={<LandingPage />} />
     </Routes>
   );
