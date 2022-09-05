@@ -5,6 +5,7 @@ import {
   editNote,
   getOneNote,
   deleteNote,
+  notesCount,
 } from "../Controllers/noteController";
 import { auth } from "../middleware/jwt";
 import { userRequest } from "../types/express";
@@ -24,6 +25,20 @@ router.get("/", auth, async (req:userRequest, res) => {
     res.status(400).json({ error: error });
   }
 });
+//get notes count
+router.get("/admin", auth, async (req:userRequest, res) => {
+  try {
+    const response = await notesCount(req.user.user_id);
+    res.status(201).json({
+      message: "notes count gotten",
+      data: response,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+});
+
+
 
 //create new note
 router.post("/", auth, async (req:userRequest, res) => {

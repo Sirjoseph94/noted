@@ -33,10 +33,26 @@ export async function createNote(data: Record<string, unknown>) {
 
 export async function readAllNotes(userId: number) {
   return await prisma.note.findMany({
+    orderBy: [
+      {
+        updatedAt: 'desc',
+      }
+    ],
     where: {
       authorId: userId,
     },
   });
+}
+export async function notesCount(userId: number) {
+  const admin = await prisma.user.findFirst({
+    where: {
+      id: userId,
+      isAdmin: true
+    }
+  })
+  if (!admin) throw "Not authorized";
+  const noteCount = await prisma.note.findMany()
+  return noteCount.length
 }
 
 export async function getOneNote(id: number) {
