@@ -9,7 +9,8 @@ const MyNotes = () => {
     const [notes, setNotes] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [ID, setID] = useState(null)
+    const [update, setUpdate] = useState(false)
+    const [ID, setID] = useState(null);
     const token = localStorage.getItem("token");
 
     //get all notes
@@ -20,7 +21,6 @@ const MyNotes = () => {
             const notes = await axios.get("/api/note", {
               headers: { Authorization: `Bearer ${token}` },
             });
-            // console.log(notes.data.data);
             setNotes(notes.data.data);
           } catch (error) {
             console.log(error);
@@ -30,7 +30,7 @@ const MyNotes = () => {
     }, [])
     
       //create notes
-       const postData = async() => {
+       const saveNote = async() => {
            try {
                const response = await axios.post("/api/note",
                    {
@@ -38,47 +38,50 @@ const MyNotes = () => {
                        content
                }, {
                 headers: {Authorization: `Bearer ${token}`},
-            })
+               }) 
+               console.log(response)
            } catch (error) {
                console.log(error)
         }
 }
 
     //update note
-    const UpdateNote = async (data) => {
-        let{id, title, content} = data
-        localStorage.setItem('ID', id);
-        localStorage.setItem('title', title);
-        localStorage.setItem('content', content);
-
+    const UpdateNote = async (e) => {
+    
         try {
-            const response = await axios.put("/api/note",
+            const response = await axios.put(`/api/note/${ID}`,
                 {
                     title,
                     content
             }, {
              headers: {Authorization: `Bearer ${token}`},
-         })
-         localStorage.removeItem('ID')
-         localStorage.removeItem('title')
-            localStorage.removeItem('content')
+            })
+            setUpdate(false)
+            console.log(response)
         } catch (error) {
             console.log(error)
      }
 }
-    useEffect(() => {
-        setID(localStorage.getItem('ID'))
-        setTitle(localStorage.getItem('title'))
-        setContent(localStorage.getItem('content'))
+  
+    //getByID
+    const getNote = async(id) => {
+        try {
+            const note = await axios.get("/api/note/"+id, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            setTitle(note.data.response.title);
+            setContent(note.data.response.content);
+            setID(note.data.response.id);
+          } catch (error) {
+            console.log(error);
+          }
+        };
 
-       
-    }, [])
     
     //delete note
-    const DeleteNote = async (data) => {
-        let id = data.id;
+    const DeleteNote = async (id) => {
         try {
-            const response = await axios.delete("/api/note/"+id,
+            const response = await axios.delete(`/api/note/${id}`,
              {
              headers: {Authorization: `Bearer ${token}`},
                 })
@@ -104,21 +107,24 @@ const MyNotes = () => {
         <div className="uk-section  uk-section-primary">
             <div className="uk-container">
                     <h1>Create note</h1>
-                    <form>
-                         <div className="uk-margin">
+                    <form onSubmit={!update?saveNote:UpdateNote}>
+                        <div className="uk-margin">
+                        
             <input className="uk-input" type="text" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)}/>
         </div>
                     <div className="uk-margin">
             <textarea className="uk-textarea" rows="5" value={content} placeholder="Enter your note" onChange={(e) => setContent(e.target.value)}></textarea>
                         </div>
                         <div className="uk-center">
-                            { (!ID)?
-                            <button className="uk-button uk-button-default" onClick={postData} type='submit'>Save note</button>
+                            <div className="uk-button-group">
+                                {!update?
+                            <input className="uk-button uk-button-default"  type='submit' value="Save note"/>
                             :
-                            <button className="uk-button uk-button-default" onClick={UpdateNote} type='submit' href="?">Update note</button>
-                            }
-                        <button className="uk-button uk-button-default">Start voice note</button>
-                        <button className="uk-button uk-button-default">Stop voice note</button>
+                            <input className="uk-button uk-button-default" type='submit' value="Update Note" />
+                                }
+                            <button className="uk-button uk-button-default">Start voice note</button>
+                            <button className="uk-button uk-button-default">Stop voice note</button>
+                          </div>
                         </div>
                     </form>
             </div>
@@ -130,11 +136,17 @@ const MyNotes = () => {
                         {notes.map(data => {
                             return(
                             <div key={data.id}>
-                                <div className="uk-card uk-card-hover uk-card-default uk-card-body uk-margin">
+                                    <div className="uk-card uk-card-hover uk-card-default uk-card-body uk-margin">
+                                       
                                     <h3 className="uk-card-title uk-text-primary">{data.title}</h3>
                                     <p>{data.content}</p>
-                                        <button onClick={() => UpdateNote(data)}  class="uk-button  uk-button-primary uk-button-small "><span uk-icon="icon: pencil"></span> Update note</button>
-                                        <button onClick={() => DeleteNote(data)}  class="uk-button uk-button-danger uk-button-small "><span uk-icon="icon: pencil"></span> Delete note</button>
+                                        {/* <button  data-uk-toggle="target: #updateModal" onClick={() => getNote(data.id)}  className="uk-button  uk-button-primary uk-button-small "><span uk-icon="icon: pencil"></span> Update note</button> */}
+                                        <button onClick={() => {
+                                            setUpdate(true)
+                                            getNote(data.id); 
+
+                                        }} className="uk-button  uk-button-primary uk-button-small "><span uk-icon="icon: pencil"></span> Update note</button>
+                                        <button onClick={() => DeleteNote(data.id)}  className="uk-button uk-button-danger uk-button-small "><span uk-icon="icon: pencil"></span> Delete note</button>
                                 </div>
                             </div>
                             ) 
@@ -150,6 +162,33 @@ const MyNotes = () => {
           <span className="uk-text-muted" >NoteMe by Group 4</span>
        </div>
                 </div>
+
+            {/* View Product Modal */}
+            {/* <div id="updateModal" className="uk-flex-top" data-uk-modal>
+    <div className="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+        <button className="uk-modal-close-default" type="button" data-uk-close></button>
+
+       <h1>Update note</h1>
+                    <form >
+                        <div className="uk-margin">
+                    <input type="hidden" value={ID || ""} name="id" onChange={(e) => setID(e.target.value)}/>
+            <input className="uk-input" type="text" name="title" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
+        </div>
+                    <div className="uk-margin">
+            <textarea className="uk-textarea" rows="5" name="content" value={content || ""} placeholder="Enter your note" onChange={(e) => setupdateContent(e.target.value)}></textarea>
+                        </div>
+                        <div className="uk-center">
+                           <div className="uk-button-group">
+                                
+                        <button className="uk-button uk-button-default" type='submit' onClick={UpdateNote}>Update note</button>
+                        <button className="uk-button uk-button-default">Start voice note</button>
+                        <button className="uk-button uk-button-default">Stop voice note</button>
+        </div>
+                        </div>
+                    </form>
+    </div>
+            </div> */}
         </>
     )
 }

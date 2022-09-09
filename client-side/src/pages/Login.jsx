@@ -28,7 +28,7 @@ export default function Login() {
       if (response.data.success) {
         localStorage.setItem("token", response.data.data)
         alert("login successful");
-        navigate("/notepage");
+        navigate("/notes");
         // console.log("sucessful");
       }
       // console.log(response);

@@ -10,7 +10,6 @@ const createNoteSchema = z.object({
 const updateNoteSchema = z.object({
   title: z.string().optional(),
   content: z.string().optional(),
-  updatedAt: z.date()
 });
 
 export async function createNote(data: Record<string, unknown>) {
@@ -68,7 +67,8 @@ export async function getOneNote(id: number) {
 
 export async function editNote(id: number, note: Record<string, unknown>) {
   const validate = updateNoteSchema.safeParse(note);
-  if (!validate.success) throw "Wrong inputs";
+ 
+  if (!validate.success) throw validate.error;
   const updatedNote = await prisma.note.update({
     where: {
       id: Number(id),
@@ -76,6 +76,7 @@ export async function editNote(id: number, note: Record<string, unknown>) {
     data: {
       title: validate.data.title,
       content: validate.data.content,
+
     },
   });
   if (!updatedNote) throw "Note does not exist";

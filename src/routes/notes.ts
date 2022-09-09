@@ -17,7 +17,7 @@ const router = Router();
 router.get("/", auth, async (req:userRequest, res) => {
   try {
     const response = await readAllNotes(req.user.user_id);
-    res.status(201).json({
+    res.status(200).json({
       message: "notes gotten",
       data: response,
     });
