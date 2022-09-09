@@ -25,11 +25,12 @@
    
  window.onload = function () {
     let speech = new speechRecognitionApi({
-    output:document.querySelector(".output")
+        output: document.querySelector(".output")
     })
+    console.log(speech)
 
     document.querySelector(".btn-start ").addEventListener("click", () =>{
-        speech.init();
+       speech.init();
     })
 
     document.querySelector(".btn-end ").addEventListener("click", () =>{

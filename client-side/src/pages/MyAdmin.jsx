@@ -55,15 +55,15 @@ function MyAdmin() {
    const response =  await axios.delete('/api/user/' + id, {
       headers: { Authorization: `Bearer ${token}` },
    })
-    
-    return (
-  
-      alert(response.data.response)
+   document.location.reload()
+    // return (
+    //   alert(response.data.response)
       //       <div class="uk-alert-danger" uk-alert>
 //     <a class="uk-alert-close" uk-close></a>
 //     <p>{response}</p>
 // </div>
-    )
+    // )
+    
   }
 
  
@@ -82,7 +82,8 @@ function MyAdmin() {
         className="uk-navbar-container uk-margin-left uk-margin-right uk-primary"
         data-uk-navbar>
         <div className="uk-navbar-center">
-          <a className="uk-navbar-item uk-logo" href="#">
+          
+          <a className="uk-navbar-item uk-logo">
             Noted App Stats
           </a>
         </div>
