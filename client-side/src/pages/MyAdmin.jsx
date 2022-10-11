@@ -1,7 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import "uikit/dist/css/uikit.min.css";
-import "uikit/dist/js/uikit.min.js";
 import axios from "../api/axios";
 
 function MyAdmin() {
