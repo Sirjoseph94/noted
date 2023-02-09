@@ -11,19 +11,19 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmail = (e) => {
+  const handleEmail = e => {
     setEmail(e.target.value);
   };
-  const handlePasssword = (e) => {
+  const handlePasssword = e => {
     setPassword(e.target.value);
   };
 
-  const handleUserName = (e) => {
+  const handleUserName = e => {
     setUserName(e.target.value);
   };
 
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/signup", {
@@ -34,10 +34,10 @@ export default function Register() {
       if (response.status === 200) {
         alert("Registration successful");
         navigate("/login");
-        console.log("move");
       }
       console.log("response");
     } catch (error) {
+      console.error(error);
       alert(error.response.data.Error.issues[0].message);
     }
   };
