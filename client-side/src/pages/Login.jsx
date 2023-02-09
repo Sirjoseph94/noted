@@ -41,8 +41,8 @@ export default function Login() {
   return (
     <div>
       <Navbar />
-      <div className="main-container">
-        <div className="sub_container">
+      <div className="main-container uk-margin-large">
+        <div className="uk-card uk-card-primary  uk-card-body">
           <h1>Login</h1>
 
           <form>
@@ -51,8 +51,7 @@ export default function Login() {
               <input
                 type="email"
                 placeholder="email"
-                className="fields"
-                size="20"
+                className="uk-input"
                 onChange={handleEmail}
               />
               s
@@ -61,9 +60,8 @@ export default function Login() {
               <input
                 type="password"
                 placeholder="password"
-                className="fields"
-                title="Password should contain a letters,numbers and special signs"
-                size="20"
+                className="uk-input"
+                title="Password should contain a letters,numbers and special characters"
                 pattern="[a-z]{4,8}"
                 onChange={handlePasssword}
               />

@@ -45,8 +45,8 @@ export default function Register() {
   return (
     <div>
       <Navbar />
-      <div className="main-container">
-        <div className="sub_container">
+      <div className="main-container uk-margin-large">
+        <div className="uk-card uk-card-primary  uk-card-body ">
           <h1>Signup</h1>
           <form>
             <div className="text_fields">
@@ -55,7 +55,7 @@ export default function Register() {
                 type="text"
                 placeholder="Input UserName"
                 onChange={handleUserName}
-                className="fields"
+                className="uk-input"
                 size="20"
               />
               <br />
@@ -64,7 +64,7 @@ export default function Register() {
               <input
                 type="email"
                 placeholder="email"
-                className="fields"
+                className="uk-input"
                 onChange={handleEmail}
                 size="20"
               />
@@ -73,7 +73,7 @@ export default function Register() {
               <input
                 type="password"
                 placeholder="password"
-                className="fields"
+                className="uk-input"
                 onChange={handlePasssword}
                 title="Password should contain a letters,numbers and special signs"
                 size="20"

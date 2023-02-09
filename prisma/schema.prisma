@@ -3,12 +3,10 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
 }
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
 }
 
 model User {
@@ -26,7 +24,7 @@ model User {
 model Note {
   id        Int     @id @default(autoincrement())
   title     String
-  content   String  @db.Text
+  content   String  
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
   createdAt DateTime    @default(now())
